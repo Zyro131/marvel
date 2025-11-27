@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marvel Watchlist</title>
+<style>
+    :root {
+        --bg: #0b0f15;
+        --card: #151c24;
+        --text: #fff;
+        --main: #e62429;
+    }
+    .light {
+        --bg: #eee;
+        --card: #fff;
+        --text: #000;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial;
+        margin: 0;
+    }
+
+    h1 {
+        text-align: center;
+        padding: 15px;
+        color: var(--main);
+    }
+
+    .container {
+        width: 90%;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .section {
+        background: var(--card);
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 10px;
+        border: 1px solid var(--main);
+    }
+
+    .section h2 {
+        color: var(--main);
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: block;
+        padding: 6px 0;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        accent-color: var(--main);
+        transform: scale(1.2);
+        margin-right: 6px;
+    }
+
+    .top-buttons{
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    button{
+        padding: 6px 12px;
+        background: var(--main);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        font-size: 15px;
+    }
+
+    .poster{
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Marvel Watchlist</h1>
+
+<div class="top-buttons">
+    <button onclick="save()">Save Progress</button>
+    <button onclick="load()">Restore Progress</button>
+    <button onclick="toggleMode()">Dark/Light</button>
+</div>
+
+<div class="container">
+
+    <!-- PHASE ONE -->
+    <div class="section">
+        <h2>Phase One</h2>
+        <label><input type="checkbox"> Iron Man</label>
+        <label><input type="checkbox"> The Incredible Hulk</label>
+        <label><input type="checkbox"> Iron Man 2</label>
+        <label><input type="checkbox"> Thor</label>
+        <label><input type="checkbox"> Captain America: The First Avenger</label>
+        <label><input type="checkbox"> The Avengers</label>
+    </div>
+
+    <!-- PHASE TWO -->
+    <div class="section">
+        <h2>Phase Two</h2>
+        <label><input type="checkbox"> Iron Man 3</label>
+        <label><input type="checkbox"> Thor: The Dark World</label>
+        <label><input type="checkbox"> Captain America: The Winter Soldier</label>
+        <label><input type="checkbox"> Guardians of the Galaxy</label>
+        <label><input type="checkbox"> Avengers: Age of Ultron</label>
+        <label><input type="checkbox"> Ant-Man</label>
+    </div>
+
+    <!-- PHASE THREE -->
+    <div class="section">
+        <h2>Phase Three</h2>
+        <label><input type="checkbox"> Captain America: Civil War</label>
+        <label><input type="checkbox"> Doctor Strange</label>
+        <label><input type="checkbox"> Guardians of the Galaxy Vol.2</label>
+        <label><input type="checkbox"> Spider-Man: Homecoming</label>
+        <label><input type="checkbox"> Thor: Ragnarok</label>
+        <label><input type="checkbox"> Black Panther</label>
+        <label><input type="checkbox"> Avengers: Infinity War</label>
+        <label><input type="checkbox"> Ant-Man and the Wasp</label>
+        <label><input type="checkbox"> Captain Marvel</label>
+        <label><input type="checkbox"> Avengers: Endgame</label>
+        <label><input type="checkbox"> Spider-Man: Far From Home</label>
+    </div>
+
+    <!-- PHASE FOUR -->
+    <div class="section">
+        <h2>Phase Four</h2>
+        <label><input type="checkbox"> WandaVision</label>
+        <label><input type="checkbox"> The Falcon & The Winter Soldier</label>
+        <label><input type="checkbox"> Loki</label>
+        <label><input type="checkbox"> What If...?</label>
+        <label><input type="checkbox"> Hawkeye</label>
+        <label><input type="checkbox"> Moon Knight</label>
+        <label><input type="checkbox"> She-Hulk</label>
+        <label><input type="checkbox"> Eternals</label>
+        <label><input type="checkbox"> Shang-Chi</label>
+        <label><input type="checkbox"> Black Widow</label>
+    </div>
+
+    <!-- PHASE FIVE -->
+    <div class="section">
+        <h2>Phase Five</h2>
+        <label><input type="checkbox"> Quantumania</label>
+        <label><input type="checkbox"> Guardians of the Galaxy Vol. 3</label>
+        <label><input type="checkbox"> The Marvels</label>
+        <label><input type="checkbox"> Deadpool & Wolverine</label>
+        <label><input type="checkbox"> Captain America: Brave New World</label>
+        <label><input type="checkbox"> Thunderbolts*</label>
+    </div>
+
+    <!-- PHASE SIX -->
+    <div class="section">
+        <h2>Phase Six</h2>
+        <label><input type="checkbox"> Fantastic Four</label>
+        <label><input type="checkbox"> More upcoming soon...</label>
+    </div>
+
+    <!-- SONY -->
+    <div class="section">
+        <h2>Sony Universe</h2>
+        <label><input type="checkbox"> Venom</label>
+        <label><input type="checkbox"> Venom 2</label>
+        <label><input type="checkbox"> Morbius</label>
+    </div>
+
+</div>
+
+<script>
+function save(){
+    const checked = [...document.querySelectorAll("input:checked")].map(i=>i.parentElement.innerText);
+    localStorage.setItem("marvel", JSON.stringify(checked));
+    alert("Saved!");
+}
+
+function load(){
+    const saved = JSON.parse(localStorage.getItem("marvel") || "[]");
+    document.querySelectorAll("input").forEach(input=>{
+        input.checked = saved.includes(input.parentElement.innerText);
+    });
+    alert("Restored!");
+}
+
+function toggleMode(){
+    document.body.classList.toggle("light");
+}
+</script>
+
+</body>
+</html>
